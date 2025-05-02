@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAH</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1 :class="{ highlight: isMyTurn }" v-if="playerNumber">
+            Player {{ playerNumber }} <span v-if="isMyTurn"></span>
+        </h1>
+        <h1 v-else>Connecting...</h1>
+        <p v-if="isMyTurn && currentString">{{ currentString }}</p>
+        <div v-if="isMyTurn && submissions.length > 0">
+            <h2>Submissions:</h2>
+            <ul>
+                <li v-for="submission in submissions" :key="submission">{{ submission }}</li>
+            </ul>
+        </div>
+        <div v-if="!isMyTurn">
+            <h2>Your Cards:</h2>
+            <ul>
+                <li v-for="card in myCards" :key="card">
+                    <button class="card-button" @click="handleCardClick(card)">{{ card }}</button>
+                </li>
+            </ul>
+        </div>
+        <button v-if="isMyTurn" class="complete-turn-button" @click="completeTurn">Turn Complete</button>
+    </div>  
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
